@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>localStorage</title>
+    <link type="text/css" rel="stylesheet" href="">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <!-- <script type="text/javascript" src="../angular.js"></script> -->
+    <style>
+        input {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div ng-app="myApp" ng-controller="myController">
+        <input type="text" class="username" placeholder="用户名" ng-model="username" autocomplete/>
+        <input type="password" class="password" placeholder="****" ng-model="password" autocomplete/>
+        <input type="submit" value="登录" ng-click="setLocalStorage();" />
+        <input type="submit" value="读取" ng-click="getDataLocalStorage();" /> 输入的账号密码：
+        <div></div>
+        <div></div>
+    </div>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myController', ['$scope', function ($scope) {
+            // 设置localStorage
+            $scope.setLocalStorage = function () {
+                var user = {
+                    username: $scope.username,
+                    password: $scope.password
+                };
+                var userList = [];
+                userList.push(user);
+                // console.log(userList);
+                $scope.userList = userList;
+                localStorage.setItem('data', angular.toJson($scope.userList));
+            };
+
+            // 读取localStorage
+            $scope.getDataLocalStorage = function () {
+                if (localStorage.length == 0) {
+                    alert("请先点击 {登录} 按钮");
+                } else {
+                    $scope.getData = angular.fromJson(localStorage.getItem("data"));
+                    console.log($scope.getData);
+                }
+            }
+        }]);
+    </script>
+</body>
+
+</html>
