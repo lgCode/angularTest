@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ui-router传参</title>
+    <link type="text/css" rel="stylesheet" href="">
+    <script type="text/javascript" src=""></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-ui-router.min.js"></script>
+</head>
+<body>
+<div ng-app="myApp" >
+    <a ui-sref="index({id:30})">show index</a>
+    <a ui-sref="test({username:'peter'})">show test</a>
+    <div ui-view></div>
+</div>
+<script>
+    var app = angular.module('myApp', ['ui.router']);
+    app.config(["$stateProvider",  function ($stateProvider) {
+        //有url: '/index/:id',和url: '/index/{id}',两种形式传参
+        $stateProvider
+            .state("home", {
+                url: '/',
+                template:"<div>homePage</div>"
+
+            })
+            .state("index", {
+                url: '/index/{id}',
+                template:"<div>indexcontent</div>",
+                controller:function($stateParams){
+                    alert($stateParams.id)
+                }
+            })
+            .state("test", {
+                url: '/test/:username',
+                template:"<div>testContent</div>",
+                controller:function($stateParams){
+                    alert($stateParams.username)
+                }
+            })
+
+    }]);
+</script>
+</body>
+</html>

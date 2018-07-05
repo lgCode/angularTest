@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tab栏</title>
+    <style>
+        .active {
+            background-color: orange;
+        }
+    </style>
+    <script src="js/angular.js"></script>
+</head>
+<body ng-app="s1.app">
+<div>
+    <button ng-class="{ 'active' : data.current == 1 }" ng-click="actions.setCurrent(1)">张三</button>
+    <button ng-class="{ 'active' : data.current == 2 }" ng-click="actions.setCurrent(2)">李四</button>
+    <button ng-class="{ 'active' : data.current == 3 }" ng-click="actions.setCurrent(3)">王五</button>
+</div>
+<div>
+    <div ng-if="data.current == 1">张三的个人信息</div>
+    <div ng-if="data.current == 2">李四的个人信息</div>
+    <div ng-if="data.current == 3">王五的个人信息</div>
+    <script>
+        var app = angular.module('s1.app', []);
+        app.run(function ($rootScope) {
+            $rootScope.data = {
+                current: "1" // 1代表张三，2代表李四，3代表王五
+            };
+            $rootScope.actions =
+            {
+                setCurrent: function (param) {
+                    $rootScope.data.current = param;
+                }
+            }
+        })
+    </script>
+</div>
+</body>
+</html>

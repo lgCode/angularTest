@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ui-view的绝对定位，相对定位</title>
+    <link type="text/css" rel="stylesheet" href="">
+    <script type="text/javascript" src=""></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-ui-router.min.js"></script>
+</head>
+<body>
+<div ng-app="myApp">
+    <a ui-sref="index">show index</a>
+    <a ui-sref="index.content1">content1</a>
+    <a ui-sref="index.content2">content2</a>
+    <div ui-view="index">
+        <div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var app = angular.module('myApp', ['ui.router']);
+    app.config(["$stateProvider", function ($stateProvider) {
+        $stateProvider
+            .state("index", {
+                url: '/index',
+                views: {
+                    'index': {template: "<div><div ui-view='header'></div> " +
+                                                " <div ui-view='nav'></div>" +
+                                                " <div ui-view='body'></div> " +
+                                      " </div>"},
+                    //这里必须要绝对定位
+                    'header@index': {template: "<div>头部内容header</div>"},
+                    'nav@index': {template: "<div>菜单内容nav</div>"},
+                    'body@index': {template: "<div>展示内容contents</div>"}
+                }
+            })
+            //绝对定位
+            .state("index.content1", {
+                url: '/content1',
+                views: {
+                    'header@index': {template: "<div>我是content1</div>"}
+                    //'header@index'表时名为header的view使用index模板,即是index的view下面的header区域
+                }
+            })
+            //相对定位：该状态的里的名为body的ui-view为相对路径下的（即没有说明具体是哪个模板下的）
+            .state("index.content2", {
+                url: '/content2',
+                views: {
+                    'body': {template: "<div>我是content2</div>"}//
+                }
+            })
+
+    }]);
+</script>
+</body>
+</html>

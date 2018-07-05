@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>嵌套路由</title>
+    <link type="text/css" rel="stylesheet" href="">
+    <script type="text/javascript" src=""></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-ui-router.min.js"></script>
+</head>
+<body>
+<div ng-app="myApp">
+    <a ui-sref="parent">点我显示父view内容</a>
+    <a ui-sref="parent.child">点我显示父view与子view内容</a>
+    <a ui-sref="parent.girl">绝对路径的路由，点我</a>
+    <div ui-view></div> <!-- 父View -->
+</div>
+<script type="text/javascript">
+    var app = angular.module('myApp', ['ui.router']);
+    app.config(["$stateProvider",'$urlRouterProvider',  function ($stateProvider,$urlRouterProvider) {
+        $stateProvider
+            .state("parent", {//父路由
+                url: '/parent',
+                template:'<div>parent'
+                +'<div ui-view style="width:100px;height:30px;line-height: 30px;background: lightgoldenrodyellow;"><div>'// 子View
+                +'</div>'
+            })
+            .state("parent.child", {//子路由
+                url: '/child',
+                template:'<div>child</div>'             //路径变为…./index.html#/parent
+            })
+            .state('parent.girl',{
+                url:'^/girl',                           //绝对路径 在url里面加上'^/*****'
+                template:'<div>girl</div>'              //路径变为…./index.html#/child
+            });
+//        $urlRouterProvider.when('','/parent');
+//        $urlRouterProvider.otherwise('/parent');
+    }]);
+
+</script>
+</body>
+</html>

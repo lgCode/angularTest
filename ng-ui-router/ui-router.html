@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单级路由</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-ui-router.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        .router_box {
+            margin: 0 auto;
+            width: 60%;
+            height: 950px;
+        }
+
+        .router_list {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            width: 100%;
+            height: 30px;
+            background: lightgoldenrodyellow;
+            margin-bottom: 200px;
+        }
+
+        .router_list li {
+            flex: 1;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #333333;
+            font-size: 20px;
+            color: #000000;
+        }
+
+        .router_list li:hover {
+            background: #929aee;
+        }
+
+        .active {
+            background: #929aee;
+        }
+        .view-wrap{
+            display: table;
+            width:100%;
+            height:300px;
+            background: burlywood;
+        }
+        .view-wrap div{
+            display: table-cell;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body ng-app='router_app'>
+<div class="router_box">
+    <ul class="router_list">
+        <li class="active" ui-sref="apple">apple</li>
+        <li ui-sref="orange">orange</li>
+        <li ui-sref="strawberry">strawberry</li>
+    </ul>
+    <div class="view-wrap" ui-view>
+
+    </div>
+</div>
+<script>
+    var app = angular.module('router_app', ['ui.router']);
+    app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+
+        $stateProvider
+            .state('apple', {
+                url: '/apple',
+                template: "<div>这是苹果路由,\n" +
+                "苹果（学名：Malus pumila）是水果的一种，是蔷薇科苹果亚科苹果属植物，其树为落叶乔木。苹果的果实富含矿物质和维生素，是人们经常食用的水果之一。\n" +
+                "苹果是一种低热量食物，每100克只产生60千卡热量。苹果中营养成分可溶性大，易被人体吸收，故有“活水”之称。其有利于溶解硫元素，使皮肤润滑柔嫩 [1]  。据说“每天一苹果，医生远离我”。\n</div>"
+            })
+            .state('orange', {
+                url: '/orange',
+                template: '<div>这是橘子路由,橘子中的维生素A还能够增强人体在黑暗环境中的视力和治疗夜盲症。橘子不宜食用过量，吃太多会患有胡萝卜素血症，皮肤呈深黄色，如同黄疸一般。若因吃太多橘子造成手掌变黄，只要停吃一段时间，就能让肤色渐渐恢复正常。</div>'
+            })
+            .state('strawberry', {
+                url: '/strawberry',
+                template: '<div>这是草莓路由,草莓（学名：Fragaria × ananassa Duch.），多年生草本植物。高10-40厘米，茎低于叶或近相等，密被开展黄色柔毛。叶三出，小叶具短柄，质地较厚，倒卵形或菱形，上面深绿色，几无毛，下面淡白绿色，疏生毛，沿脉较密；</div>'
+            });
+        $urlRouterProvider.when('', '/home');//url无效是跳转home
+        $urlRouterProvider.otherwise('/');//重定向
+    }])
+</script>
+</body>
+
+</html>

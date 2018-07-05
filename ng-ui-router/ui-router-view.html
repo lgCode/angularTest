@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>路由视图</title>
+    <link type="text/css" rel="stylesheet" href="">
+    <script type="text/javascript" src=""></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-ui-router.min.js"></script>
+</head>
+<body>
+<div ng-app="myApp">
+    <a ui-sref="index">点我显示index内容</a>
+    <div ui-view="header"></div>
+    <div ui-view="nav"></div>
+    <div ui-view="world"></div>
+</div>
+<script type="text/javascript">
+    var app = angular.module('myApp', ['ui.router']);
+    app.config(["$stateProvider", function ($stateProvider) {
+        $stateProvider
+            .state("index", {
+                url: '/index',
+                views: {
+                    'header': {template: "<div>头部内容</div>"},
+                    'nav': {template: "<div>菜单内容</div>"},
+                    'world': {templateUrl: 'world.html'}
+                }
+            })
+            .state('index.world1', {
+                url: '/world/world-1',
+                template: '<h3>This is a World 1</h3>'
+            })
+            .state('index.world2', {
+                url: '/world/world-2',
+                template: '<h3>world2并不依赖于world，在我们点击它的时候，' +
+                '他会替换掉index.html中的<div ui-view></div></h3>'
+            })
+    }]);
+</script>
+</body>
+</html>
