@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>备忘录</title>
+    <link type="text/css" rel="stylesheet" href="">
+    <script type="text/javascript" src=""></script>
+</head>
+<body ng-app="myApp" ng-controller="todoCtrl">
+<h2>我的备忘录</h2>
+<form ng-submit="toAdd()">
+    <input type="text" ng-model="todoInput" size="50" placeholder="新增" required>
+    <input type="submit" value="新增">
+</form>
+<div ng-repeat="x in todoList">
+    <input type="checkbox" ng-model="x.done"> <span ng-bind="x.text"></span>
+</div>
+<p>
+    <button ng-click="remove()">删除记录</button>
+</p>
+<script type="text/javascript" src="js/angular.js"></script>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('todoCtrl', function ($scope) {
+        $scope.todoList = [{text: '记下些什么吧', done: false}];
+
+        $scope.toAdd = function () {
+            $scope.todoList.push({text: $scope.todoInput, done: false});
+            $scope.todoInput = '';
+        };
+
+        $scope.remove = function () {
+            var oldList = $scope.todoList;
+            $scope.todoList = [];
+            angular.forEach(oldList, function (x) {
+                if (!x.done) $scope.todoList.push(x);
+            });
+        }
+    })
+</script>
+</body>
+</html>
