@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>scope</title>
+    <link type="text/css" rel="stylesheet" href="">
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+<div ng-controller='MainController'>
+    父亲: {{name}}
+    <input ng-model="name" />
+    <div my-directive></div>
+    <br />
+    <input type="text" ng-model="color" placeholder="Enter a color"/>
+    <hello-world></hello-world>
+</div>
+<script>
+    angular.module('myApp',[])
+        .controller('MainController',['$scope',function ($scope) {
+            $scope.name='哈士奇'
+        }])
+        .directive('myDirective',function () {
+            return {
+                restrict:'EA',
+                /*scope:false,
+                //儿子继承父亲的值，改变父亲的值，儿子的值也随之变化，反之亦如此。（继承不隔离）*/
+                scope:true,
+                //儿子继承父亲的值，改变父亲的值，儿子的值随之变化，但是改变儿子的值，父亲的值不变。（继承隔离）
+                /*scope:{},
+                //没有继承父亲的值，所以儿子的值为空，改变任何一方的值均不能影响另一方的值。（不继承隔离）*/
+                template:'<div>儿子:{{ name }}<input ng-model="name"/></div>'
+            }
+        })
+        .directive('helloWorld',function () {
+            return{
+                restrict:'EA',
+                replace:true,
+                template:'<p style="background-color:{{color}}">Hello World</p>'
+            }
+        })
+</script>
+</body>
+</html>

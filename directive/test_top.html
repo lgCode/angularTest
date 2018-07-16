@@ -1,0 +1,17 @@
+<div class="qyd_top">
+	<div class="qyd_logo f_left"></div>
+	<div class="qyd_right f_right">
+		<div class="qyd_txtList f_left">
+			<ul>
+				<li ng-repeat="item in txtList" ng-class="{'active':item.selected}"><a href="javascript:;">{{item.txt}}</a></li>
+			</ul>
+		</div>
+		<div class="qyd_ico f_left">
+			<ul>
+				<li ng-repeat="item in icoList" ng-class="{'active':item.selected}"><i class="{{item.className}}"></i>{{item.txt}}</li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+</div>

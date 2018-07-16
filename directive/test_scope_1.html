@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>scope</title>
+    <link type="text/css" rel="stylesheet" href="">
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+<div ng-init="name='父亲'">
+    parentNode：{{name}}
+    <div ng-controller="myController">
+        chrildNode： {{name}}
+    </div>
+</div>
+<script>
+    angular.module('myApp',[])
+        .controller('myController',['$scope',function ($scope) {
+            $scope.name='儿子'
+        }])
+</script>
+</body>
+</html>

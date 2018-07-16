@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>scope</title>
+    <link type="text/css" rel="stylesheet" href="">
+
+</head>
+<body ng-app="myApp">
+<div>
+    <input type="text" ng-model="color1" placeholder="Enter a color1"/>
+    <hello-world1 color-attr='{{color1}}'></hello-world1> <!--注意这里设置了color-attr属性，绑定了{{color}}-->
+    这是'@'绑定:    {{color1}}
+    <br />
+    <br />
+    <br />
+    <input type="text" ng-model="color2" placeholder="Enter a color2"/>
+    <hello-world2 color-attr='color2'></hello-world2> <!--注意这里设置了color-attr属性，绑定了{{color2}}-->
+    这是'='绑定:    {{color2}}
+</div>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script>
+    var app = angular.module('myApp', []);
+    app.directive('helloWorld1', function () {
+        return {
+            restrict: 'EA',
+            replace: true,
+            scope: {
+                color1: '@colorAttr' //指明了隔离作用域中的属性color1应该绑定到属性colorAttr
+                //单向绑定
+            },
+            template: '<div style="background-color:{{color1}}">Hello World<div><input type="text" ng-model="color1"></div></div>'
+        }
+    });
+    app.directive('helloWorld2', function () {
+        return {
+            restrict: 'EA',
+            replace: true,
+            scope: {
+                color2: '=colorAttr' //指明了隔离作用域中的属性color2应该绑定到属性colorAttr
+                //双向绑定
+            },
+            template: '<div style="background-color:{{color2}}">Hello World<div><input type="text" ng-model="color2"></div></div>'
+        }
+    });
+</script>
+</body>
+</html>

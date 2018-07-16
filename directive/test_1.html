@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="">
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .contain{
+            width:1000px;
+            height:900px;
+            border:1px solid #000000;
+            margin:0 auto;
+            background: ghostwhite;
+        }
+    </style>
+</head>
+<body>
+<div class="contain" ng-app="test_app" ng-controller="test_ctrl">
+    <test-top txt-list="{{txtList}}"></test-top>
+</div>
+
+
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/test.js"></script>
+<script type="text/javascript">
+    app.filter('trustHtml', function ($sce) {
+        return function (input) {
+            return $sce.trustAsHtml(input);
+        }
+    });
+    app.controller('test_ctrl',['$scope',function ($scope){
+        $scope.txtList=[
+            {
+                txt:'首页'
+            },
+            {
+                txt:'能耗监测',
+                selected:true
+            },
+            {
+                txt:'能效分析'
+            },
+            {
+                txt:'成本分析'
+            },
+            {
+                txt:'告警管理'
+            },
+            {
+                txt:'报表管理'
+            },
+            {
+                txt:'节能管理'
+            },
+            {
+                txt:'资讯动态'
+            }
+        ];
+        /*$scope.icoList=[
+            {
+                className:'qyd_set',
+                txt:''
+            },
+            {
+                className:'qyd_exit',
+                txt:'退出'
+            }
+        ];
+        $scope.navList=[
+            {
+                txt:'数据采集',
+                selected:true
+            },
+            {
+                txt:'能耗分析'
+            },
+            {
+                txt:'计量管理'
+            }
+        ];
+        $scope.showBtn={
+            txt:'自定义报表',
+            show:true
+        };
+        $scope.showTime=true;
+        $scope.showYear=true;
+        $scope.leftList=[
+            {
+                txt:'采集<br />数据'
+            },
+            {
+                txt:'台账<br />结构'
+            },
+            {
+                txt:'监测<br />结构',
+                selected:true
+            }
+        ];*/
+    }]);
+</script>
+</body>
+</html>

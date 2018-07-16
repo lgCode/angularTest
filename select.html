@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select</title>
+    <link type="text/css" rel="stylesheet" href="">
+</head>
+<body>
+<div ng-app="my_app" ng-controller="my_control">
+    <select ng-init="selectedName = names[0]" ng-model="selectedName"
+            ng-options="x for x in names"></select>
+
+    <select ng-init="selectedPeople = friends[0]"
+            ng-model="selectedPeople"
+            ng-options="friend.name for friend in friends" style="width:100px;"></select>
+
+    <h3>{{selectedPeople.name}}</h3>
+    <h3>{{selectedPeople.age}}</h3>
+</div>
+<script type="text/javascript" src="js/angular.js"></script>
+<script>
+    angular.module('my_app', [])
+        .controller('my_control', function ($scope) {
+            $scope.names = ['A', 'B', 'C'];
+            $scope.friends = [
+                {name:'A',age:'16'},
+                {name:'B',age:'17'},
+                {name:'C',age:'19'}
+            ]
+        })
+</script>
+</body>
+</html>
